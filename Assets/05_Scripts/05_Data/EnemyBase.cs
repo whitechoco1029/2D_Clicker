@@ -24,6 +24,8 @@ public class EnemyBase : MonoBehaviour
 
         if (Health <= 0 )
         {
+            Health = 0;
+
             Die();
         }
     }

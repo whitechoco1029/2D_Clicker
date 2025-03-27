@@ -10,6 +10,11 @@ public class UIStage : MonoBehaviour
     [SerializeField] TextMeshProUGUI textKillCount;
     [SerializeField] Image healthBar;
 
+    private void Start()
+    {
+        StageManager.Instance.uiStage = this;
+    }
+
     public void UpdateStageUI(int stage)
     {
         textStage.text = $"Stage {stage}";
@@ -17,7 +22,7 @@ public class UIStage : MonoBehaviour
 
     public void UpdateKillCount(int cnt)
     {
-        textStage.text = $"{cnt} / 10";
+        textStage.text = $"{cnt} / {StageManager.Instance.maxKillCount}";
     }
 
     public void UpdateHealthBar(float maxHealth, float curHealth)
