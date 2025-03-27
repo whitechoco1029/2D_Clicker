@@ -1,52 +1,74 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
 {
+    [Header("플레이어 데이터 참조")]
     public UserData userData;
-    public List<UpgradeStatData> upgradeTables;
 
-    public TMP_Text statValueText;
+    [Header("업그레이드 데이터 리스트")]
+    public List<UpgradeStatData> upgradeStatDataList;
+
+    [Header("UI 요소")]
+    public TMP_Text statNameText;
+    public TMP_Text levelText;
+    public TMP_Text valueText;
     public TMP_Text costText;
-    public StatType upgradeTarget;
+    public Button upgradeButton;
+    public StatType statType;
 
-    private UpgradeStatData currentData;
+    [Header("경고 메시지")]
+    public GameObject warningPopup;
+    public float warningDuration = 1.5f;
+
+    private UpgradeStatData statData;
 
     private void Start()
     {
-        currentData = upgradeTables.Find(t => t.statType == upgradeTarget);
-        RefreshUI();
+        statData = upgradeStatDataList.Find(x => x.statType == statType);
+        UpdateUI();
+
+        upgradeButton.onClick.AddListener(OnClickUpgrade);
     }
 
-    public void OnClickUpgrade()
+    private void OnClickUpgrade()
     {
-        int level = GetCurrentLevel();
-        float cost = currentData.GetCostByLevel(level);
+        int currentLevel = GetUpgradeLevel();
+        float cost = statData.GetCostByLevel(currentLevel);
 
         if (userData.gold >= cost)
         {
             userData.gold -= cost;
             IncreaseUpgradeLevel();
-            RefreshUI();
+            UpdateUI();
         }
         else
         {
-            Debug.Log("골드 부족!");
-            // Coroutine으로 UI 경고도 띄워줘도 좋음
+            StartCoroutine(ShowWarning());
         }
     }
 
-    private void RefreshUI()
+    private void UpdateUI()
     {
-        int level = GetCurrentLevel();
-        statValueText.text = $"Lv.{level} - {currentData.GetValueByLevel(level)}";
-        costText.text = $"{currentData.GetCostByLevel(level)} G";
+        int level = GetUpgradeLevel();
+        statNameText.text = statType.ToString();
+        levelText.text = $"Lv. {level}";
+        valueText.text = $"{statData.GetValueByLevel(level)}";
+        costText.text = $"Cost: {statData.GetCostByLevel(level)} G";
     }
 
-    private int GetCurrentLevel()
+    private IEnumerator<WaitForSeconds> ShowWarning()
     {
-        return upgradeTarget switch
+        warningPopup.SetActive(true);
+        yield return new WaitForSeconds(warningDuration);
+        warningPopup.SetActive(false);
+    }
+
+    private int GetUpgradeLevel()
+    {
+        return statType switch
         {
             StatType.Atk => userData.upgradeData.atkLevel,
             StatType.CritHit => userData.upgradeData.critHitLevel,
@@ -60,7 +82,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void IncreaseUpgradeLevel()
     {
-        switch (upgradeTarget)
+        switch (statType)
         {
             case StatType.Atk: userData.upgradeData.atkLevel++; break;
             case StatType.CritHit: userData.upgradeData.critHitLevel++; break;
