@@ -8,9 +8,11 @@ public class StageManager : MonoBehaviour
     static StageManager instance;
     public static StageManager Instance => instance;
 
+    [SerializeField] EnemySpawner spawner;
     public UIStage uiStage;
     public int maxKillCount;
 
+    EnemyBase spawnEnemy;
     int stage;
     int killCount;
 
@@ -30,10 +32,22 @@ public class StageManager : MonoBehaviour
     {
         stage = 1;
         killCount = 0;
+
+        SpawnEnemy();
+    }
+    
+    void SpawnEnemy()
+    {
+        spawnEnemy = spawner.SpawnEnemy();
+        spawnEnemy.InitStatData(stage);
+
+        uiStage.UpdateHealthBar(spawnEnemy.MaxHealth, spawnEnemy.Health);
     }
 
     public void AddKillCount()
     {
+        spawner.ReleaseEnemy(spawnEnemy);
+
         killCount++;
 
         if (killCount > maxKillCount)
@@ -43,6 +57,8 @@ public class StageManager : MonoBehaviour
         }
 
         uiStage.UpdateKillCount(killCount);
+
+        SpawnEnemy();
     }
 
     public void NextStage()
