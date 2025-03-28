@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//각 무기 기본정보, 합성 후 새 무기 생성기능
+
 [System.Serializable]
 public class Weapon
 {
