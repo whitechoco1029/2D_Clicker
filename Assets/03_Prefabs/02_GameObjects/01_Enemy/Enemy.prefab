@@ -132,3 +132,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: b9e657f8c4a2c43449b70ad581804199, type: 2}
   sprite: {fileID: 8157595776027987073}
   flashDuration: 0.3
+  particle: {fileID: 0}

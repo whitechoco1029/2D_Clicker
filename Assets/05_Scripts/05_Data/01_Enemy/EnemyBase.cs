@@ -15,7 +15,7 @@ public class EnemyBase : MonoBehaviour
     public int DropGold { get; private set; }
 
     Coroutine coroutine;
-
+    
     public void InitStatData(int stage)
     {
         // 스테이지에 따른 스탯 조정
@@ -29,6 +29,7 @@ public class EnemyBase : MonoBehaviour
         Health -= damage;
         Health = Mathf.Max(0, Health);
         StageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
+        StageManager.Instance.CreateHitParticles(transform.position, Color.yellow);
 
         if (Health <= 0)
             Die();
