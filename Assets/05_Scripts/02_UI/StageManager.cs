@@ -67,4 +67,9 @@ public class StageManager : MonoBehaviour
 
         uiStage.UpdateStageUI(stage);
     }
+
+    public void TestButtonEvent()
+    {
+        spawnEnemy.TakeDamage(10);
+    }
 }

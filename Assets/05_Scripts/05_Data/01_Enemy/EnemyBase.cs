@@ -14,6 +14,8 @@ public class EnemyBase : MonoBehaviour
     public float MaxHealth {  get; private set; }
     public int DropGold { get; private set; }
 
+    Coroutine coroutine;
+
     public void InitStatData(int stage)
     {
         // 스테이지에 따른 스탯 조정
@@ -28,14 +30,24 @@ public class EnemyBase : MonoBehaviour
         Health = Mathf.Max(0, Health);
         StageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
 
-        StartCoroutine(FlashOnHit());
-
         if (Health <= 0)
             Die();
+        else
+        {
+            if (coroutine != null)
+            {
+                StopAllCoroutines();
+            }
+
+            coroutine = StartCoroutine(FlashOnHit());
+        }
     }
 
     public virtual void Die()
     {
+        StopAllCoroutines();
+        sprite.color = Color.white;
+
         StageManager.Instance.AddKillCount();
     }
     
@@ -47,7 +59,7 @@ public class EnemyBase : MonoBehaviour
         while (elapsed < flashDuration)
         {
             elapsed += Time.deltaTime;
-            sprite.color = Color.Lerp(sprite.color, Color.white, elapsed / flashDuration);
+            sprite.color = Color.Lerp(Color.red, Color.white, elapsed / flashDuration);
 
             yield return null;
         }
