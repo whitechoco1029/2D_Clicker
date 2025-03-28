@@ -10,7 +10,7 @@ public class UIStage : MonoBehaviour
     [SerializeField] TextMeshProUGUI textKillCount;
     [SerializeField] Image healthBar;
 
-    private void Start()
+    private void Awake()
     {
         StageManager.Instance.uiStage = this;
     }

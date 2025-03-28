@@ -13,9 +13,13 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyPool = new List<EnemyBase>();
 
+        EnemyBase newEnemy;
         for (int i = 0;  i < enemyPrefabs.Length; i++)
         {
-            enemyPool.Add(Instantiate(enemyPrefabs[i], transform));
+            newEnemy = Instantiate(enemyPrefabs[i], transform);
+
+            enemyPool.Add(newEnemy);
+            newEnemy.gameObject.SetActive(false);
         }
     }
 
