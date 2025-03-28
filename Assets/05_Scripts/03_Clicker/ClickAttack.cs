@@ -1,17 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AutoAttack : MonoBehaviour
+public class ClickAttack : MonoBehaviour
 {
-    private void Start()
+    public void Update()
     {
-        InvokeRepeating(nameof(PerformAutoAttack),
-                        AttackManager.Instance.autoAttackInterval,
-                        AttackManager.Instance.autoAttackInterval);
-    }
-
-    private void PerformAutoAttack()
-    {
-        AttackManager.Instance.AutoAttack();
+        if (Input.GetMouseButtonDown(0))  // 마우스 클릭 시
+        {
+            AttackManager.Instance.ClickAttack();  // AttackManager의 ClickAttack 호출
+        }
     }
 }

@@ -1,18 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class A : MonoBehaviour
+public class AutoAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public  void Start()
     {
-        
+        StartCoroutine(AutoAttackRoutine());  // 코루틴 시작
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator AutoAttackRoutine()
     {
-        
+        while (true)  // 무한 루프 (조건에 따라 공격 실행)
+        {
+            if (AttackManager.Instance != null)
+            {
+                AttackManager.Instance.AutoAttack();  // 공격 실행
+            }
+
+            yield return new WaitForSeconds(1f);  // 1초마다 실행
+        }
     }
 }

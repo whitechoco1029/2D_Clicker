@@ -5,39 +5,64 @@ using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
-    public static AttackManager Instance; // 싱글톤 패턴
+    public static AttackManager Instance;  // 싱글톤
+    public ClickAttack clickAttack;  // 클릭 공격 스크립트 참조
+    public AutoAttack autoAttack;  // 자동 공격 스크립트 참조
 
-    public int clickDamage = 1; // 클릭 공격력
-    public int autoDamage = 2;   // 자동 공격력
-    public float autoAttackInterval = 1f; // 자동 공격 간격
+    public EnemySpawner enemySpawner;  // 적 스폰을 담당하는 EnemySpawner 참조
 
-    public Monster targetMonster;
-
-    private void Awake()
+    public void Awake()
     {
         if (Instance == null) Instance = this;
     }
 
     private void Start()
     {
-        targetMonster = FindObjectOfType<Monster>(); // 몬스터 찾기
-        InvokeRepeating(nameof(AutoAttack), autoAttackInterval, autoAttackInterval); // 자동 공격 실행
+        enemySpawner = FindObjectOfType<EnemySpawner>();
+        clickAttack = GetComponent<ClickAttack>();
+        autoAttack = GetComponent<AutoAttack>();
+
+        SpawnNewEnemy();
     }
 
-    public void ClickAttack()
-    {
-        if (targetMonster != null)
-        {
-            targetMonster.TakeDamage(clickDamage);
+    //// 새로운 적 스폰
+    //public void SpawnNewEnemy()
+    //{
+    //    if (enemySpawner != null)
+    //    {
+    //        GameObject newEnemyObj = enemySpawner.SpawnMonster();
+    //        spawnMonster = newEnemyObj.GetComponent<EnemySpawner>();
 
-        }
-    }
+    //        // AutoAttack 스크립트에 새 적 전달
+    //        if (autoAttack != null)
+    //        {
+    //            autoAttack.SetTarget(spawnMonster);
+    //        }
+    //    }
+    //}
 
-    public void AutoAttack()
+    //// 클릭 공격 실행
+    //public void ClickAttack()
+    //{
+    //    if (clickAttack != null)
+    //    {
+    //        clickAttack.(spawnMonster);
+    //    }
+    //}
+
+    //// 자동 공격 실행
+    //public void AutoAttack()
+    //{
+    //    if (autoAttack != null)
+    //    {
+    //        autoAttack.AutoAttackRoutine(spawnMonster);
+    //    }
+    //}
+
+    // 적이 죽었을 때 호출됨
+    public void OnEnemyDeath()
     {
-        if (targetMonster != null)
-        {
-            targetMonster.TakeDamage(autoDamage);
-        }
+        Debug.Log("적 처치 완료! 새로운 적 스폰");
+        SpawnNewEnemy();
     }
 }
