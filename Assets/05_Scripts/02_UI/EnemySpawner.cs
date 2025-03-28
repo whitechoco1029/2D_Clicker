@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     public EnemyBase SpawnEnemy()
     {
         int rand = Random.Range(0, enemyPool.Count);
+        enemyPool[rand].gameObject.SetActive(true);
 
         return enemyPool[rand];
     }
