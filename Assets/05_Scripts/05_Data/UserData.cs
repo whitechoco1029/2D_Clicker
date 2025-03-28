@@ -38,3 +38,23 @@ public class EquipmentData
     public string equippedWeapon = "";
     public string equippedAccessory = "";
 }
+
+public static class SaveSystem
+{
+    private static string saveKey = "UserData";
+
+    public static void Save(UserData data)
+    {
+        string json = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString(saveKey, json);
+        PlayerPrefs.Save();
+    }
+
+    public static UserData Load()
+    {
+        if (!PlayerPrefs.HasKey(saveKey)) return new UserData();
+        string json = PlayerPrefs.GetString(saveKey);
+        return JsonUtility.FromJson<UserData>(json);
+    }
+}
+

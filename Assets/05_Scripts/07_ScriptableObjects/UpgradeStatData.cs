@@ -6,7 +6,7 @@ public class UpgradeStatData : ScriptableObject
 {
     public StatType statType;
     public List<float> valuePerLevel;     // 레벨별 증가 수치
-    public List<float> costPerLevel;      // 레벨별 업그레이드 비용
+    public List<float> costPerLevel;      // 레벨별 업그레이드
 
     public float GetValueByLevel(int level)
     {
