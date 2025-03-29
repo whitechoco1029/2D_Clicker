@@ -3,31 +3,33 @@ using System.Linq;
 
 public class StatCalculator
 {
-    private UserData userData;
-    private Dictionary<StatType, UpgradeStatData> upgradeTable;
+    private UserData data;
+    private Dictionary<StatType, UpgradeStatData> statTables;
 
     public StatCalculator(UserData data, List<UpgradeStatData> tables)
     {
-        userData = data;
-        upgradeTable = tables.ToDictionary(t => t.statType, t => t);
+        this.data = data;
+        statTables = new();
+        foreach (var table in tables)
+            statTables[table.statType] = table;
     }
 
-    public float GetFinalStat(StatType stat)
+    public float GetStat(StatType stat)
     {
-        int level = GetUpgradeLevel(stat);
-        return upgradeTable[stat].GetValueByLevel(level);
+        int level = GetLevel(stat);
+        return statTables[stat].GetValueByLevel(level);
     }
 
-    private int GetUpgradeLevel(StatType stat)
+    private int GetLevel(StatType stat)
     {
         return stat switch
         {
-            StatType.Atk => userData.upgradeData.atkLevel,
-            StatType.CritHit => userData.upgradeData.critHitLevel,
-            StatType.CritDmg => userData.upgradeData.critDmgLevel,
-            StatType.AtkSpeed => userData.upgradeData.atkSpeedLevel,
-            StatType.GoldBonus => userData.upgradeData.goldBonusLevel,
-            StatType.ClickDmg => userData.upgradeData.clickDmgLevel,
+            StatType.Atk => data.upgradeData.atkLevel,
+            StatType.CritHit => data.upgradeData.critHitLevel,
+            StatType.CritDmg => data.upgradeData.critDmgLevel,
+            StatType.AtkSpeed => data.upgradeData.atkSpeedLevel,
+            StatType.GoldBonus => data.upgradeData.goldBonusLevel,
+            StatType.ClickDmg => data.upgradeData.clickDmgLevel,
             _ => 0
         };
     }
