@@ -5,29 +5,34 @@ using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs;
+    public EnemyBase[] enemyPrefabs;
 
-    ObjectPool<GameObject>[] enemyPool;
+    List<EnemyBase> enemyPool;
 
     private void Start()
     {
-        enemyPool = new ObjectPool<GameObject>[enemyPrefabs.Length];
+        enemyPool = new List<EnemyBase>();
 
-        for (int i = 0; i < enemyPool.Length; i++)
+        EnemyBase newEnemy;
+        for (int i = 0;  i < enemyPrefabs.Length; i++)
         {
-            enemyPool[i] = new ObjectPool<GameObject>(
-                createFunc: () => Instantiate(enemyPrefabs[i]),
-                actionOnGet: (enemy) => enemy.SetActive(true),
-                actionOnRelease: (enemy) => enemy.SetActive(false),
-                actionOnDestroy: (enemy) => Destroy(enemy)
-                );
+            newEnemy = Instantiate(enemyPrefabs[i], transform);
+
+            enemyPool.Add(newEnemy);
+            newEnemy.gameObject.SetActive(false);
         }
     }
 
-    public GameObject SpawnMonster()
+    public EnemyBase SpawnEnemy()
     {
-        int rand = Random.Range(0, enemyPool.Length);
+        int rand = Random.Range(0, enemyPool.Count);
+        enemyPool[rand].gameObject.SetActive(true);
 
-        return enemyPool[rand].Get();
+        return enemyPool[rand];
+    }
+
+    public void ReleaseEnemy(EnemyBase enemy)
+    {
+        enemy.gameObject.SetActive(false);
     }
 }
