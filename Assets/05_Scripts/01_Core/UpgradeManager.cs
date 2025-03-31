@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +11,10 @@ public class UpgradeManager : MonoBehaviour
     public List<UpgradeStatData> upgradeStatDataList;
 
     [Header("UI 요소")]
-    public TMP_Text statNameText;
-    public TMP_Text levelText;
-    public TMP_Text valueText;
-    public TMP_Text costText;
+    public Text statNameText;
+    public Text levelText;
+    public Text valueText;
+    public Text costText;
     public Button upgradeButton;
     public StatType statType;
 
@@ -33,7 +32,7 @@ public class UpgradeManager : MonoBehaviour
         upgradeButton.onClick.AddListener(OnClickUpgrade);
     }
 
-    private void OnClickUpgrade()
+    public void OnClickUpgrade()
     {
         int currentLevel = GetUpgradeLevel();
         float cost = statData.GetCostByLevel(currentLevel);
@@ -54,9 +53,9 @@ public class UpgradeManager : MonoBehaviour
     {
         int level = GetUpgradeLevel();
         statNameText.text = statType.ToString();
-        levelText.text = $"Lv. {level}";
+        levelText.text = $"현재레벨:{level}";
         valueText.text = $"{statData.GetValueByLevel(level)}";
-        costText.text = $"Cost: {statData.GetCostByLevel(level)} G";
+        costText.text = $"가격: {statData.GetCostByLevel(level)} G";
     }
 
     private IEnumerator<WaitForSeconds> ShowWarning()
