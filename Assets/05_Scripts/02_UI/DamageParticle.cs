@@ -19,8 +19,8 @@ public class DamageParticle : MonoBehaviour
     public void Init(string damage, Color color)
     {
         textDamage.text = damage;
-        textDamage.color = color;
-
+        textDamage.outlineColor = color;
+        
         Vector2 force = new Vector2(Random.Range(-forceRange / 2, forceRange/ 2), forcePower);
 
         rigid.AddForce(force, ForceMode2D.Impulse);

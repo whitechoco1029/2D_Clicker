@@ -13,7 +13,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] EnemySpawner spawner;
     public UIStage uiStage;
     public int maxKillCount;
-    [SerializeField] ParticleSystem particle;
 
     EnemyBase spawnEnemy;
     int stage;
@@ -35,7 +34,6 @@ public class StageManager : MonoBehaviour
     {
         stage = 1;
         killCount = 0;
-        particle.Stop();
 
         SpawnEnemy();
     }
@@ -75,18 +73,5 @@ public class StageManager : MonoBehaviour
     public void TestButtonEvent()
     {
         spawnEnemy.TakeDamage(10);
-    }
-
-    public void CreateHitParticles(Vector3 position, Color particleColor)
-    {
-        // 파티클 포지션 랜덤위치 생성
-        Vector3 vecRand = Random.insideUnitCircle * 0.5f;
-        particle.transform.position = position + vecRand;
-
-        // 파티클 컬러
-        ParticleSystem.MainModule main = particle.main;
-        main.startColor = particleColor;
-
-        particle.Play();
     }
 }
