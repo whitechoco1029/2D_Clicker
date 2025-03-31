@@ -8,9 +8,16 @@ public class UIStage : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textStage;
     [SerializeField] TextMeshProUGUI textKillCount;
-    [SerializeField] Image healthBar;
 
-    private void Start()
+    [Header ("HPBar Info")]
+    [SerializeField] Image healthBar;
+    [SerializeField] float decreaseDuration;
+
+    Coroutine coroutine;
+    float targetHp;
+    float curHp;
+
+    private void Awake()
     {
         StageManager.Instance.uiStage = this;
     }
@@ -22,11 +29,45 @@ public class UIStage : MonoBehaviour
 
     public void UpdateKillCount(int cnt)
     {
-        textStage.text = $"{cnt} / {StageManager.Instance.maxKillCount}";
+        textKillCount.text = $"{cnt} / {StageManager.Instance.maxKillCount}";
+    }
+
+    public void InitHpBar(float maxHealth)
+    {
+        if (coroutine != null)
+        {
+            StopAllCoroutines();
+        }
+
+        curHp = maxHealth;
+        healthBar.fillAmount = curHp / maxHealth;
     }
 
     public void UpdateHealthBar(float maxHealth, float curHealth)
     {
-        healthBar.fillAmount = curHealth / maxHealth;
+        if (coroutine != null)
+        {
+            StopAllCoroutines();
+        }
+        
+        coroutine = StartCoroutine(ChangeHealthBar(maxHealth, curHealth));
+    }
+
+    IEnumerator ChangeHealthBar(float maxHealth, float curHealth)
+    {
+        targetHp = curHealth;
+        float elapsed = 0f;
+
+        while (elapsed < decreaseDuration)
+        {
+            elapsed += Time.deltaTime;
+            curHp = Mathf.Lerp(curHp, targetHp, elapsed / decreaseDuration);
+            healthBar.fillAmount = curHp / maxHealth;
+
+            yield return null;
+        }
+
+        curHp = targetHp;
+        healthBar.fillAmount = curHp / maxHealth;
     }
 }

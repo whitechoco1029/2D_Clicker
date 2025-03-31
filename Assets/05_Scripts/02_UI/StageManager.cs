@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UIElements;
+using static UnityEngine.ParticleSystem;
 
 public class StageManager : MonoBehaviour
 {
     static StageManager instance;
     public static StageManager Instance => instance;
 
+    [SerializeField] EnemySpawner spawner;
     public UIStage uiStage;
     public int maxKillCount;
 
+    EnemyBase spawnEnemy;
     int stage;
     int killCount;
 
@@ -30,10 +34,22 @@ public class StageManager : MonoBehaviour
     {
         stage = 1;
         killCount = 0;
+
+        SpawnEnemy();
+    }
+    
+    void SpawnEnemy()
+    {
+        spawnEnemy = spawner.SpawnEnemy();
+        spawnEnemy.InitStatData(stage);
+
+        uiStage.InitHpBar(spawnEnemy.MaxHealth);
     }
 
     public void AddKillCount()
     {
+        spawner.ReleaseEnemy(spawnEnemy);
+
         killCount++;
 
         if (killCount > maxKillCount)
@@ -43,6 +59,8 @@ public class StageManager : MonoBehaviour
         }
 
         uiStage.UpdateKillCount(killCount);
+
+        SpawnEnemy();
     }
 
     public void NextStage()
@@ -50,5 +68,10 @@ public class StageManager : MonoBehaviour
         stage++;
 
         uiStage.UpdateStageUI(stage);
+    }
+
+    public void TestButtonEvent()
+    {
+        spawnEnemy.TakeDamage(10);
     }
 }
