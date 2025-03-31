@@ -10,6 +10,7 @@ public class UIInventory : MonoBehaviour
     public GameObject inventoryWindow;  // 인벤토리 창
     public Transform SlotPanel;  // 슬롯이 배치된 패널
 
+
     void Start()
     {
         inventoryWindow.SetActive(true);  // 인벤토리 창을 활성화
@@ -30,14 +31,12 @@ public class UIInventory : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            // 슬롯에 아이템을 넣는 작업
-            // 아이템이 없으면 비우고, 있으면 슬롯에 표시
-            slots[i].ClearSlot();  // 슬롯을 비우는 예시 함수
+            slots[i].ClearSlot(); 
         }
     }
 
     // 인벤토리에 아이템 추가
-    public void AddItemToInventory(Weapon weapon)
+    public void AddItemToInventory(WeaponData weapon)
     {
         for (int i = 0; i < slots.Length; i++)
         {

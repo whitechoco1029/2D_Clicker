@@ -8,116 +8,80 @@ using System.Xml.Linq;
 //무기아이템을 드래그하여 합성할 수 있는 기능 추가해야됨
 public class WeaponUIManager : MonoBehaviour
 {
-    public GameObject slotPrefab; //무기슬롯 프리팹
-    public Transform inventoryPanel; //인벤토리 패널
     public Button generateWeaponButton; //무기생성 버튼
 
-    private Weapon firstWeapon = null; //첫번째 선택된 무기
-    private Weapon secondWeapon = null; //두번쨰 선택된 무기
+    public List<Slot> slots = new List <Slot>();
+    public WeaponData currentdata; //데이터 불러오기 -1레벨 무기...
+    public Slot firstWeapon = null; //첫번째 선택된 무기
+    public Slot secondWeapon = null; //두번쨰 선택된 무기
 
-    private List<Weapon> inventory = new List<Weapon>();//무기 목록
+    private List<WeaponData> inventory = new List<WeaponData>();//무기 목록
  
 
     void Start()
     {
-        generateWeaponButton.onClick.AddListener(GenerateWeapon);
-        PopulateInventory();
-    }
+       
+        generateWeaponButton.onClick.AddListener(spawnWeapon);
 
-    void GenerateWeapon()
-    {
-        //무기 ID는 인벤토리 크기 +1로 설정 - 인벤토리 내 갯수+1하여 새로운 id받아오기
-        int newWeaponID = inventory.Count + 1;
-        Weapon newWeapon = new Weapon(newWeaponID);
-
-        //생성된 무기 인벤토리에 추가하기
-        inventory.Add(newWeapon);
-
-        //UI갱신
-        AddWeaponToInventoryUI(newWeapon);
-    }
-    //인벤토리 ui에 무기 슬롯 추가
-    void AddWeaponToInventoryUI(Weapon newWeapon)
-    {
-        GameObject slotObject = Instantiate(slotPrefab, inventoryPanel);  // Slot 생성
-        Slot slot = slotObject.GetComponent<Slot>();
-        slot.SetWeapon(newWeapon);  // 슬롯에 무기 설정
-        slot.OnSlotSelected += HandleWeaponSelection;  // 무기 선택 이벤트 연결
-        slot.OnSlotDropped += HandleWeaponDrop;  // 드래그 앤 드롭 이벤트 연결
-    }
-
-    // 무기 선택 처리
-    private void HandleWeaponSelection(Slot selectedSlot)
-    {
-        Weapon selectedWeapon = selectedSlot.GetWeapon();
-
-        // 첫 번째 무기 선택
-        if (firstWeapon == null)
+        // 각 슬롯에 실제 Slot 오브젝트를 할당
+        for (int i = 0; i < transform.GetChild(0).childCount; i++)
         {
-            firstWeapon = selectedWeapon;
-        }
-        // 두 번째 무기 선택 후 합성
-        else if (secondWeapon == null)
-        {
-            secondWeapon = selectedWeapon;
-            UpgradeWeapons();
+            slots.Add (transform.GetChild(0).GetChild(i).GetComponent<Slot>());  // 각 슬롯에 ItemSlot 컴포넌트 연결
         }
     }
 
     // 무기 합성 처리
-    private void UpgradeWeapons()
+    public void UpgradeWeapons()
     {
         if (firstWeapon != null && secondWeapon != null)
         {
-            if (firstWeapon.weaponID == secondWeapon.weaponID)  // 동일한 무기인지 확인
+            if (firstWeapon.weapondata.weaponID == secondWeapon.weapondata.weaponID)  // 동일한 무기인지 확인
             {
-                int newWeaponID = firstWeapon.weaponID + 1;
-                int newWeaponPower = newWeaponID * 10;
+                int newWeaponID = firstWeapon.weapondata.weaponID + 1;
 
                 // 새로운 무기 생성
-                Weapon upgradedWeapon = new Weapon(newWeaponID);
-                upgradedWeapon.WeaponPower = newWeaponPower;
+                WeaponData upgradedWeapon = GetWeaponData(newWeaponID);
 
-                // 무기 목록에서 두 무기 제거하고 새로운 무기 추가
-                inventory.Add(upgradedWeapon);
-                inventory.Remove(firstWeapon);
-                inventory.Remove(secondWeapon);
-
-                // UI 갱신
-                RefreshInventoryUI();
-
-                // 선택된 무기 초기화
-                firstWeapon = null;
-                secondWeapon = null;
+                // 선택된 무기 초기화              
+                firstWeapon.SetWeapon(null);
+                secondWeapon.SetWeapon(upgradedWeapon);
             }
         }
     }
-
-    // UI 갱신
-    void RefreshInventoryUI()
+ 
+    public void spawnWeapon()
     {
-        foreach (Transform child in inventoryPanel)
+
+        Slot select = GetEmptySlot();
+        if (select != null)
         {
-            Destroy(child.gameObject);  // 기존 UI 항목 삭제
+            
+            select.SetWeapon(currentdata);
         }
 
-        PopulateInventory();  // UI 새로 고침
     }
-
-    // 인벤토리 UI에 있는 모든 무기 추가
-    void PopulateInventory()
+    private Slot GetEmptySlot()
     {
-        foreach (Weapon weapon in inventory)
+        for (int i = 0; i < slots.Count; i++)
         {
-            AddWeaponToInventoryUI(weapon);  // UI에 무기 슬롯 추가
+            if (slots[i].weapondata == null)
+            {
+                return slots[i];
+            }
+
         }
+        return null; //빈칸이 없을때                        
     }
-    // 드래그 앤 드롭 처리
-    private void HandleWeaponDrop(Slot droppedSlot)
+    private WeaponData GetWeaponData(int ID)
     {
-        // 드롭된 슬롯에서 무기를 가져와서 처리
-        Weapon droppedWeapon = droppedSlot.GetWeapon();
-        // 추가적인 드래그 앤 드롭 로직 처리(다른기능넣을거면)
-        Debug.Log($"드롭된 무기: {droppedWeapon.weaponName}");
+        for (int i = 0; i < inventory.Count; i++)
+
+        {
+            if (inventory[i].weaponID == ID)
+            {
+                return inventory[i];
+            }
+        }
+        return null;
     }
 }
