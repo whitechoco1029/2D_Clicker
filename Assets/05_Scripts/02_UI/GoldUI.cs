@@ -1,13 +1,13 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GoldUI : MonoBehaviour
 {
-    public TMP_Text goldText;
+    public Text goldText;
     public UserData userData;
 
     private void Update()
     {
-        goldText.text = $"Gold: {userData.gold:0}";
+        goldText.text = $"{userData.gold:0}°³";
     }
 }
