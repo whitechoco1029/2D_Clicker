@@ -43,7 +43,7 @@ public class StageManager : MonoBehaviour
         spawnEnemy = spawner.SpawnEnemy();
         spawnEnemy.InitStatData(stage);
 
-        uiStage.UpdateHealthBar(spawnEnemy.MaxHealth, spawnEnemy.Health);
+        uiStage.InitHpBar(spawnEnemy.MaxHealth);
     }
 
     public void AddKillCount()

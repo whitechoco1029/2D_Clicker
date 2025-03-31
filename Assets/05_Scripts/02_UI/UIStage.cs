@@ -8,7 +8,14 @@ public class UIStage : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textStage;
     [SerializeField] TextMeshProUGUI textKillCount;
+
+    [Header ("HPBar Info")]
     [SerializeField] Image healthBar;
+    [SerializeField] float decreaseDuration;
+
+    Coroutine coroutine;
+    float targetHp;
+    float curHp;
 
     private void Awake()
     {
@@ -25,8 +32,42 @@ public class UIStage : MonoBehaviour
         textKillCount.text = $"{cnt} / {StageManager.Instance.maxKillCount}";
     }
 
+    public void InitHpBar(float maxHealth)
+    {
+        if (coroutine != null)
+        {
+            StopAllCoroutines();
+        }
+
+        curHp = maxHealth;
+        healthBar.fillAmount = curHp / maxHealth;
+    }
+
     public void UpdateHealthBar(float maxHealth, float curHealth)
     {
-        healthBar.fillAmount = curHealth / maxHealth;
+        if (coroutine != null)
+        {
+            StopAllCoroutines();
+        }
+        
+        coroutine = StartCoroutine(ChangeHealthBar(maxHealth, curHealth));
+    }
+
+    IEnumerator ChangeHealthBar(float maxHealth, float curHealth)
+    {
+        targetHp = curHealth;
+        float elapsed = 0f;
+
+        while (elapsed < decreaseDuration)
+        {
+            elapsed += Time.deltaTime;
+            curHp = Mathf.Lerp(curHp, targetHp, elapsed / decreaseDuration);
+            healthBar.fillAmount = curHp / maxHealth;
+
+            yield return null;
+        }
+
+        curHp = targetHp;
+        healthBar.fillAmount = curHp / maxHealth;
     }
 }
