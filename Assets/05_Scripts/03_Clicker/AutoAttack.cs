@@ -1,35 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoAttack : MonoBehaviour
 {
-    private UserData userData;
-    public float attackInterval = 1f; // 공격 주기
-    public EnemySpawner enemy;
+    private float attackInterval = 1f; // 1초 간격
+    private float AutoDmg = 2f; // 공격력
 
-    public void Start()
+    void Start()
     {
-        userData = FindObjectOfType<UserData>();
-        StartCoroutine(AutoAttackRoutine());
+        StartCoroutine(AutoAttackCoroutine());
     }
 
-    public void SetTarget(Enemy enemy)
-    {
-        targetEnemy = enemy;
-    }
-
-    public IEnumerator AutoAttackRoutine()
+    IEnumerator AutoAttackCoroutine()
     {
         while (true)
         {
             yield return new WaitForSeconds(attackInterval);
-            if (targetEnemy == null)
-            {
-                targetEnemy = FindObjectOfType<Enemy>(); // 자동으로 적을 찾음
-            }
-            if (targetEnemy != null)
-            {
-                targetEnemy.TakeDamage(userData.clickDmg);
-            }
+            AttackAllEnemies();
+        }
+    }
+
+    void AttackAllEnemies()
+    {
+
+        //
+        foreach (EnemyBase enemy in FindObjectsOfType<EnemyBase>()) // 모든 적 찾기
+        {
+            enemy.TakeDamage(AutoDmg);
         }
     }
 }
