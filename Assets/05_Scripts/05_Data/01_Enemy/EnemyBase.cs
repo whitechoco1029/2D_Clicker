@@ -29,7 +29,7 @@ public class EnemyBase : MonoBehaviour
         Health -= damage;
         Health = Mathf.Max(0, Health);
         StageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
-        StageManager.Instance.CreateHitParticles(transform.position, Color.yellow);
+        ParticleManager.Instance.CreateDamageParticle(transform.position, damage.ToString(), Color.yellow);
 
         if (Health <= 0)
             Die();

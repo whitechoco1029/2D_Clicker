@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
     List<EnemyBase> enemyPool;
 
-    private void Start()
+    private void Awake()
     {
         enemyPool = new List<EnemyBase>();
 
