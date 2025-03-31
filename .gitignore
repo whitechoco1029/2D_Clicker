@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+/Assets/05_Scripts/03_Clicker/MonsterAttack.cs
+/Assets/05_Scripts/03_Clicker/PlayerAttack.cs
+/Assets/05_Scripts/03_Clicker/MonsterAttack.cs.meta
+/Assets/05_Scripts/03_Clicker/PlayerAttack.cs.meta
