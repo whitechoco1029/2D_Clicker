@@ -14,8 +14,8 @@ public class WeaponUIManager : MonoBehaviour
     public WeaponData currentdata; //데이터 불러오기 -1레벨 무기...
     public Slot firstWeapon = null; //첫번째 선택된 무기
     public Slot secondWeapon = null; //두번쨰 선택된 무기
-
-    private List<WeaponData> inventory = new List<WeaponData>();//무기 목록
+    public Transform frontSlotTransform;
+    public List<WeaponData> inventory = new List<WeaponData>();//무기 목록
  
 
     void Start()
@@ -30,6 +30,61 @@ public class WeaponUIManager : MonoBehaviour
         }
     }
 
+    public void HandleDrop()
+    {
+        if (firstWeapon != null && secondWeapon != null)
+        {
+            // 1. 드롭 시 시작 슬롯과 같은 슬롯 내부에 있을 때 다시 원래 자리로 돌아올 수 있도록
+            if (firstWeapon == secondWeapon)
+            {
+                Debug.Log("드롭 실패: 같은 슬롯으로 돌아갑니다.");
+                // 같은 슬롯이라면 원래 자리로 무기 돌려놓기               
+                firstWeapon.FixImagePosition();
+                return;
+            }
+
+            // 2. 드롭 시 시작 슬롯과 같은 슬롯이 아니고 무기 데이터가 없다면 무기 데이터와 이미지가 옮겨갈 수 있도록
+            if (secondWeapon.IsEmpty())
+            {
+                Debug.Log("무기 이동: 빈 슬롯으로 아이템 이동");
+                secondWeapon.SetWeapon(firstWeapon.weapondata);
+                firstWeapon.ClearSlot();  // 첫 번째 슬롯 비우기
+                firstWeapon.FixImagePosition();
+               
+                return;
+            }
+
+            // 3. 드롭 시 시작 슬롯과 같은 슬롯이 아니고 무기 데이터가 있지만 무기 데이터가 같지 않을 경우 두 무기의 위치를 바꿔준다
+            if (secondWeapon.weapondata != firstWeapon.weapondata)
+            {
+                Debug.Log("무기 위치 변경: 두 무기의 위치를 바꿈");
+                WeaponData tempWeapon = secondWeapon.weapondata;
+                secondWeapon.SetWeapon(firstWeapon.weapondata);
+                firstWeapon.SetWeapon(tempWeapon);
+                firstWeapon.FixImagePosition(); 
+                
+                return;
+            }
+
+            // 4. 드롭 시 시작 슬롯과 같은 슬롯이 아니고 무기 데이터가 있고 무기 데이터가 같을 경우 합성이 일어난다
+            if (secondWeapon.weapondata.weaponID == firstWeapon.weapondata.weaponID)
+            {
+                Debug.Log("무기 합성 진행");
+                UpgradeWeapons();
+                firstWeapon.FixImagePosition();
+            }
+        }
+        else
+        {
+            if(firstWeapon != null)
+            {
+                firstWeapon.FixImagePosition();
+            }
+ 
+        }
+        firstWeapon = null;
+        secondWeapon = null;
+    }
     // 무기 합성 처리
     public void UpgradeWeapons()
     {
@@ -43,8 +98,8 @@ public class WeaponUIManager : MonoBehaviour
                 WeaponData upgradedWeapon = GetWeaponData(newWeaponID);
 
                 // 선택된 무기 초기화              
-                firstWeapon.SetWeapon(null);
                 secondWeapon.SetWeapon(upgradedWeapon);
+                firstWeapon.ClearSlot();
             }
         }
     }

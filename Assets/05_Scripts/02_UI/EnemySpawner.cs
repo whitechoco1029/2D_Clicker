@@ -5,7 +5,8 @@ using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public EnemyBase[] enemyPrefabs;
+    [SerializeField] EnemyBase[] enemyPrefabs;
+    [SerializeField] Transform createPos;
 
     List<EnemyBase> enemyPool;
 
@@ -16,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
         EnemyBase newEnemy;
         for (int i = 0;  i < enemyPrefabs.Length; i++)
         {
-            newEnemy = Instantiate(enemyPrefabs[i], transform);
+            newEnemy = Instantiate(enemyPrefabs[i], createPos);
 
             enemyPool.Add(newEnemy);
             newEnemy.gameObject.SetActive(false);
