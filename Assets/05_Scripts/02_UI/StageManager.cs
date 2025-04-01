@@ -41,7 +41,7 @@ public class StageManager : MonoBehaviour
     void SpawnEnemy()
     {
         spawnEnemy = spawner.SpawnEnemy();
-        spawnEnemy.InitStatData(stage);
+        spawnEnemy.Init(stage);
 
         uiStage.InitHpBar(spawnEnemy.MaxHealth);
     }
