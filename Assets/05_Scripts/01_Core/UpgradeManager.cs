@@ -63,10 +63,10 @@ public class UpgradeManager : MonoBehaviour
     private void UpdateUI()
     {
         int level = GetUpgradeLevel();
-        statNameText.text = statType.ToString();
+        statNameText.text = GetStatNameKorean(statType);
         levelText.text = $"레벨:{level}";
         valueText.text = $"{statData.GetValueByLevel(level)}";
-        costText.text = $"가격: {statData.GetCostByLevel(level)} G";
+        costText.text = $"가격: {FormatGold(statData.GetCostByLevel(level))} G";
     }
 
     private IEnumerator<WaitForSeconds> ShowWarning()
@@ -90,7 +90,7 @@ public class UpgradeManager : MonoBehaviour
         };
     }
 
-    private void IncreaseUpgradeLevel()
+    private void IncreaseUpgradeLevel() 
     {
         switch (statType)
         {
@@ -103,13 +103,13 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UpgradeCooldown()
+    private IEnumerator UpgradeCooldown() /// 업그레이드 딜레이 추가 매서드
     {
         yield return new WaitForSeconds(0.3f); // 딜레이 0.3초
         isUpgradeOnCooldown = false;
     }
 
-    private void ApplyStatByLevel()
+    private void ApplyStatByLevel() ///업그레이드 값 적용 매서드
     {
         int level = GetUpgradeLevel();
         float value = statData.GetValueByLevel(level);
@@ -136,4 +136,62 @@ public class UpgradeManager : MonoBehaviour
                 break;
         }
     }
+
+    public void OnClickUpgrade10x() ///10배 업그레이드 매서드
+    {
+        if (isUpgradeOnCooldown) return;
+
+        isUpgradeOnCooldown = true;
+        StartCoroutine(UpgradeCooldown());
+
+        int currentLevel = GetUpgradeLevel();
+        int maxLevel = Mathf.Min(currentLevel + 10, statData.valuePerLevel.Count);
+        float totalCost = 0f;
+
+        // 총 비용 계산
+        for (int i = currentLevel; i < maxLevel; i++)
+            totalCost += statData.GetCostByLevel(i);
+
+        if (userData.gold >= totalCost)
+        {
+            userData.gold -= totalCost;
+
+            // 레벨 증가
+            for (int i = currentLevel; i < maxLevel; i++)
+                IncreaseUpgradeLevel();
+
+            ApplyStatByLevel(); // 최신 스탯 반영
+            UpdateUI();
+        }
+        else
+        {
+            StartCoroutine(ShowWarning());
+        }
+    }
+
+    private string GetStatNameKorean(StatType statType) ///한국어 패치
+    {
+        switch (statType)
+        {
+            case StatType.Atk: return "공격력";
+            case StatType.CritHit: return "치명타 확률";
+            case StatType.CritDmg: return "치명타 피해";
+            case StatType.AtkSpeed: return "공격 속도";
+            case StatType.GoldBonus: return "골드 보너스";
+            case StatType.ClickDmg: return "클릭 데미지";
+            default: return statType.ToString();
+        }
+    }
+
+    private string FormatGold(float gold)
+    {
+        if (gold >= 1_000_000_000)
+            return $"{gold / 1_000_000_000f:0.00}조";
+        if (gold >= 100_000_000)
+            return $"{gold / 100_000_000f:0.0}억";
+        if (gold >= 10_000)
+            return $"{gold / 10_000f:0.0}만";
+        return $"{gold:N0}";
+    }
+
 }

@@ -1,26 +1,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 [CreateAssetMenu(fileName = "UpgradeStatData", menuName = "GameData/UpgradeStatData", order = 1)]
 public class UpgradeStatData : ScriptableObject
 {
     public StatType statType;
-    public List<float> valuePerLevel;     // 레벨별 증가 수치
-    public List<float> costPerLevel;      // 레벨별 업그레이드
+    public List<float> valuePerLevel = new List<float>();  // 레벨별 증가 수치
+    public List<float> costPerLevel = new List<float>();   // 레벨별 업그레이드 비용
 
     public float GetValueByLevel(int level)
     {
         if (level < valuePerLevel.Count)
             return valuePerLevel[level];
-        return valuePerLevel[^1]; // 마지막 값
+        return valuePerLevel[^1]; // 마지막 값 반환
     }
 
     public float GetCostByLevel(int level)
     {
         if (level < costPerLevel.Count)
             return costPerLevel[level];
-        return costPerLevel[^1];
+        return costPerLevel[^1]; // 마지막 값 반환
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("자동 생성: 곱연산 기반")]
+    public void GenerateExponentialData()
+    {
+        valuePerLevel.Clear();
+        costPerLevel.Clear();
+
+        float baseValue = 1f;
+        float baseCost = 100f;
+        float growthRate = 1.1f;       // 스탯 성장률
+        float costGrowthRate = 1.2f;   // 비용 성장률
+
+        for (int level = 1; level <= 100; level++)
+        {
+            float value = baseValue * Mathf.Pow(growthRate, level);
+            float cost = baseCost * Mathf.Pow(costGrowthRate, level);
+
+            valuePerLevel.Add(Mathf.Round(value * 100f) / 100f); // 소수점 2자리 반올림
+            costPerLevel.Add(Mathf.Round(cost));
+        }
+
+        Debug.Log($"[{statType}] 곱연산 기반 자동 생성 완료!");
+        EditorUtility.SetDirty(this); // 변경 저장
+    }
+#endif
 }
 
 public enum StatType
