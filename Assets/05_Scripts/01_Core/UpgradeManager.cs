@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class UpgradeManager : MonoBehaviour
     public float warningDuration = 1.5f;
 
     private UpgradeStatData statData;
+    private bool isUpgradeOnCooldown = false;
 
     private void Start()
     {
@@ -33,9 +35,14 @@ public class UpgradeManager : MonoBehaviour
         upgradeButton.onClick.AddListener(OnClickUpgrade);
     }
 
-    public void OnClickUpgrade()
+    private void OnClickUpgrade()
     {
-        Debug.Log("업그레이드 버튼 눌림!"); 
+        Debug.Log("업그레이드 버튼이 눌림!");
+
+        if (isUpgradeOnCooldown) return;
+
+        isUpgradeOnCooldown = true;
+        StartCoroutine(UpgradeCooldown());
 
         int currentLevel = GetUpgradeLevel();
         float cost = statData.GetCostByLevel(currentLevel);
@@ -93,5 +100,11 @@ public class UpgradeManager : MonoBehaviour
             case StatType.GoldBonus: userData.upgradeData.goldBonusLevel++; break;
             case StatType.ClickDmg: userData.upgradeData.clickDmgLevel++; break;
         }
+    }
+
+    private IEnumerator UpgradeCooldown()
+    {
+        yield return new WaitForSeconds(0.3f); // 딜레이 0.3초
+        isUpgradeOnCooldown = false;
     }
 }
