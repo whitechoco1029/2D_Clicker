@@ -43,6 +43,13 @@ public class UpgradeStatData : ScriptableObject
             float value = baseValue * Mathf.Pow(growthRate, level);
             float cost = baseCost * Mathf.Pow(costGrowthRate, level);
 
+            // 치명타 확률은 최대 100으로 제한
+            if (statType == StatType.CritHit)
+                value = Mathf.Min(value, 100f);
+
+            valuePerLevel.Add(Mathf.Round(value * 100f) / 100f); // 소수점 2자리
+            costPerLevel.Add(Mathf.Round(cost));
+
             valuePerLevel.Add(Mathf.Round(value * 1000f) / 1000f); // 소수점 2자리 반올림
             costPerLevel.Add(Mathf.Round(cost));
         }
