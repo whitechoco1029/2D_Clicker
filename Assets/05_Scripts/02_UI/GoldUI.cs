@@ -8,6 +8,6 @@ public class GoldUI : MonoBehaviour
 
     private void Update()
     {
-        goldText.text = $"{userData.gold:0}°³";
+        goldText.text = $"Gold: {GameManager.Instance.userData.gold:0}";
     }
 }
