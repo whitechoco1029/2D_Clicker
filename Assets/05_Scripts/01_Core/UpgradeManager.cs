@@ -26,6 +26,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        userData = GameManager.Instance.userData;
         statData = upgradeStatDataList.Find(x => x.statType == statType);
         UpdateUI();
 
@@ -34,6 +35,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void OnClickUpgrade()
     {
+        Debug.Log("업그레이드 버튼 눌림!"); 
+
         int currentLevel = GetUpgradeLevel();
         float cost = statData.GetCostByLevel(currentLevel);
 
@@ -53,7 +56,7 @@ public class UpgradeManager : MonoBehaviour
     {
         int level = GetUpgradeLevel();
         statNameText.text = statType.ToString();
-        levelText.text = $"현재레벨:{level}";
+        levelText.text = $"레벨:{level}";
         valueText.text = $"{statData.GetValueByLevel(level)}";
         costText.text = $"가격: {statData.GetCostByLevel(level)} G";
     }

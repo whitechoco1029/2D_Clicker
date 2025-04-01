@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3f4391335b3264781dbc868a682cce, type: 3}
+  m_Name: 01_Atk_UpstatData
+  m_EditorClassIdentifier: 
+  statType: 0
+  valuePerLevel:
+  - 5
+  - 10
+  - 25
+  - 37
+  - 45
+  - 58
+  - 65
+  - 77
+  - 89
+  - 100
+  - 110
+  costPerLevel:
+  - 100
+  - 200
+  - 400
+  - 800
+  - 1500
+  - 3000
+  - 6000
+  - 10000
+  - 12500
+  - 17000
+  - 20000

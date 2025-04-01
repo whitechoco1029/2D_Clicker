@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b3f4391335b3264781dbc868a682cce, type: 3}
-  m_Name: UpgradeStatData
+  m_Name: 04_AtkSpeed_UpstatData
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 3
   valuePerLevel:
   - 5
   - 10
