@@ -8,6 +8,18 @@ public class GoldUI : MonoBehaviour
 
     private void Update()
     {
-        goldText.text = $"{userData.gold:0}개";
+        goldText.text = FormatGold(GameManager.Instance.userData.gold);
     }
+
+    string FormatGold(float gold)
+    {
+        if (gold >= 1_000_000_000_000)
+            return $"{gold / 1000000000000f:0.00}조";
+        if (gold >= 100_000_000)
+            return $"{gold / 100000000f:0.00}억";
+        if (gold >= 10_000)
+            return $"{gold / 10000f:0.00}만";
+        return $"{gold.ToString("N0")}";
+    }
+
 }
