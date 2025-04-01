@@ -34,9 +34,9 @@ public class UpgradeStatData : ScriptableObject
         costPerLevel.Clear();
 
         float baseValue = 1f;
-        float baseCost = 100f;
-        float growthRate = 1.1f;       // ½ºÅÈ ¼ºÀå·ü
-        float costGrowthRate = 1.2f;   // ºñ¿ë ¼ºÀå·ü
+        float baseCost = 1000f;
+        float growthRate = 2f;       // ½ºÅÈ ¼ºÀå·ü
+        float costGrowthRate = 2.4f;   // ºñ¿ë ¼ºÀå·ü
 
         for (int level = 1; level <= 100; level++)
         {
