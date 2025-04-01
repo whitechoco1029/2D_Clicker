@@ -35,7 +35,7 @@ public class UpgradeStatData : ScriptableObject
 
         float baseValue = 1f;
         float baseCost = 1000f;
-        float growthRate = 2f;       // ½ºÅÈ ¼ºÀå·ü
+        float growthRate = 1.1f;       // ½ºÅÈ ¼ºÀå·ü
         float costGrowthRate = 1.2f;   // ºñ¿ë ¼ºÀå·ü
 
         for (int level = 1; level <= 1000; level++)
