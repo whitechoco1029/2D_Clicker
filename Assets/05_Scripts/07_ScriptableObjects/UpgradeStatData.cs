@@ -36,14 +36,14 @@ public class UpgradeStatData : ScriptableObject
         float baseValue = 1f;
         float baseCost = 1000f;
         float growthRate = 2f;       // 스탯 성장률
-        float costGrowthRate = 2.4f;   // 비용 성장률
+        float costGrowthRate = 1.2f;   // 비용 성장률
 
-        for (int level = 1; level <= 100; level++)
+        for (int level = 1; level <= 1000; level++)
         {
             float value = baseValue * Mathf.Pow(growthRate, level);
             float cost = baseCost * Mathf.Pow(costGrowthRate, level);
 
-            valuePerLevel.Add(Mathf.Round(value * 100f) / 100f); // 소수점 2자리 반올림
+            valuePerLevel.Add(Mathf.Round(value * 1000f) / 1000f); // 소수점 2자리 반올림
             costPerLevel.Add(Mathf.Round(cost));
         }
 
