@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Rigidbody2D rigid;
 
+    
     [Header("Effect")]
     [SerializeField] float flashDuration;
     [SerializeField] float fadeDuration;
@@ -28,7 +29,7 @@ public class EnemyBase : MonoBehaviour
         dead = false;
 
         // 스테이지에 따른 스탯 조정
-        MaxHealth = data.health;
+        MaxHealth = data.health * Mathf.Pow(StageManager.Instance.Difficulty, stage - 1);
         Health = MaxHealth;
         DropGold = data.dropGold;
     }

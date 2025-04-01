@@ -14,6 +14,10 @@ public class StageManager : MonoBehaviour
     public UIStage uiStage;
     public int maxKillCount;
 
+    [Header("Difficult Level")]
+    [SerializeField] float difficultyMultiplier;
+    public float Difficulty => difficultyMultiplier;
+
     EnemyBase spawnEnemy;
     int stage;
     int killCount;

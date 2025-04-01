@@ -155,6 +155,7 @@ MonoBehaviour:
   spawner: {fileID: 1926110081}
   uiStage: {fileID: 0}
   maxKillCount: 10
+  difficultyMultiplier: 1.2
 --- !u!4 &116620034
 Transform:
   m_ObjectHideFlags: 0
