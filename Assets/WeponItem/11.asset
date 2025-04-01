@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13cdc4d4b92d4314b8c51ef113ac5787, type: 3}
-  m_Name: 04
+  m_Name: 11
   m_EditorClassIdentifier: 
-  displayName: "\uAC15\uD654\uB41C \uAE30\uACC4\uD654 \uCD1D"
-  weaponID: 4
-  icon: {fileID: 21300000, guid: 83e020e59141abf4ebbe4fb1cef60e29, type: 3}
-  weaponPower: 40
+  displayName: "\uC77C\uBC18 \uBBF8\uB2C8\uAC74"
+  weaponID: 11
+  icon: {fileID: 21300000, guid: b8c3cbc3be228eb46b38b6b4904e53b4, type: 3}
+  weaponPower: 110

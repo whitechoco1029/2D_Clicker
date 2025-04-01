@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cdc4d4b92d4314b8c51ef113ac5787, type: 3}
   m_Name: 10
   m_EditorClassIdentifier: 
-  displayName: 
-  weaponID: 0
-  icon: {fileID: 0}
-  weaponPower: 0
+  displayName: "\uAC15\uD654\uB41C \uAE30\uAD00\uCD1D"
+  weaponID: 10
+  icon: {fileID: 21300000, guid: d098b6fe4ec825f47a169a91be394604, type: 3}
+  weaponPower: 100
