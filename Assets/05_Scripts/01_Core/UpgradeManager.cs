@@ -51,6 +51,7 @@ public class UpgradeManager : MonoBehaviour
         {
             userData.gold -= cost;
             IncreaseUpgradeLevel();
+            ApplyStatByLevel();
             UpdateUI();
         }
         else
@@ -106,5 +107,33 @@ public class UpgradeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f); // µÙ∑π¿Ã 0.3√ 
         isUpgradeOnCooldown = false;
+    }
+
+    private void ApplyStatByLevel()
+    {
+        int level = GetUpgradeLevel();
+        float value = statData.GetValueByLevel(level);
+
+        switch (statType)
+        {
+            case StatType.Atk:
+                userData.atk = value;
+                break;
+            case StatType.CritHit:
+                userData.critHit = value;
+                break;
+            case StatType.CritDmg:
+                userData.critDmg = value;
+                break;
+            case StatType.AtkSpeed:
+                userData.atkSpeed = value;
+                break;
+            case StatType.GoldBonus:
+                userData.goldBonus = value;
+                break;
+            case StatType.ClickDmg:
+                userData.clickDmg = value;
+                break;
+        }
     }
 }
