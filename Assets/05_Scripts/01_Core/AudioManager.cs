@@ -19,6 +19,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip upgradeClip;
     public AudioClip errorClip;
 
+    private void Start()
+    {
+        AudioManager.Instance.PlayBGM(AudioManager.Instance.mainBGM);
+    }
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
