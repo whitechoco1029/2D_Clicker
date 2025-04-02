@@ -22,20 +22,30 @@
 
 **장비 합성**
 
-장비를 생성하고 같은 등급의 장비를 합쳐 장비를 강화할 수 있습니다.
+![upgrade](https://github.com/user-attachments/assets/a77d00da-d799-4a77-84a3-22c2cbc9dabd)
+
++장비를 생성하고 같은 등급의 장비를 합쳐 장비를 강화할 수 있습니다.
 
 **장비 장착**
 
-장비 장착칸에 장비를 장착할 수 있습니다.
+![equip](https://github.com/user-attachments/assets/ccf9f58a-ddab-4f33-a2ae-d573c29f1a95)
+
++장비 장착칸에 장비를 장착할 수 있습니다.
 
 **능력치 강화**
 
-골드를 소모하여 플레이어의 능력치를 강화할 수 있습니다.
+![stat](https://github.com/user-attachments/assets/748de1ca-64f5-4931-899f-9daffed55526)
+
++골드를 소모하여 플레이어의 능력치를 강화할 수 있습니다.
 
 **자동 공격 & 공격**
 
-마우스를 클릭하거나 자동으로 몬스터를 공격할 수 있습니다.
+![attack](https://github.com/user-attachments/assets/96fbfe6c-e7b7-4021-b807-f1adf3e6ed58)
+
++마우스를 클릭하거나 자동으로 몬스터를 공격할 수 있습니다.
 
 **저장 및 사운드 조절**
 
-게임을 저장하거나 볼륨을 조절할 수 있습니다.
+![sound](https://github.com/user-attachments/assets/03d4564d-35bf-49bd-97e5-f4cbf3b2bc52)
+
++게임을 저장하거나 볼륨을 조절할 수 있습니다.
