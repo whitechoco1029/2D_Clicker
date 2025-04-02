@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13cdc4d4b92d4314b8c51ef113ac5787, type: 3}
+  m_Name: 24
+  m_EditorClassIdentifier: 
+  displayName: "\uAC15\uD654\uB41C \uD669\uAE08 \uAE30\uACC4\uD654 \uCD1D"
+  weaponID: 24
+  icon: {fileID: 21300000, guid: daab5a893ecde324d98b5c89ca29c49b, type: 3}
+  weaponPower: 240
