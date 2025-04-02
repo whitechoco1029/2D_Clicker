@@ -8,16 +8,7 @@ using static UnityEngine.ParticleSystem;
 public class StageManager : MonoBehaviour
 {
     static StageManager instance;
-    public static StageManager Instance
-    {
-        get
-        {
-            if (instance == null)
-                instance = new GameObject("StageManager").AddComponent<StageManager>();
-
-            return instance;
-        }
-    }
+    public static StageManager Instance => instance;
 
     public EnemySpawner spawner;
     public UIStage uiStage;
@@ -27,7 +18,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] float difficultyMultiplier;
     public float Difficulty => difficultyMultiplier;
 
-    EnemyBase spawnEnemy;
+    public EnemyBase spawnEnemy { get; private set; }
     int stage;
     int killCount;
 
@@ -83,8 +74,20 @@ public class StageManager : MonoBehaviour
         uiStage.UpdateStageUI(stage);
     }
 
-    public void TestButtonEvent()
+    public void OnButtonAttackClick()
     {
-        spawnEnemy.TakeDamage(10);
+        float atk = GameManager.Instance.userData.atk + (UIInventory.Instance.equipSlots.weapondata == null ? 0 : UIInventory.Instance.equipSlots.weapondata.weaponPower);
+        float rand = Random.Range(0f, 100f);
+        bool critical = false;
+        // 크리티컬
+        if (rand <= GameManager.Instance.userData.critHit)
+        {
+            critical = true;
+            atk *= GameManager.Instance.userData.critDmg;
+        }
+
+        atk = atk + (atk * Random.Range(-0.1f, 0.1f));
+
+        spawnEnemy.TakeDamage(atk, critical);
     }
 }
