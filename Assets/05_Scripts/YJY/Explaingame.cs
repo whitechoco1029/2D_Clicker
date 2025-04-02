@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class Explaingame : MonoBehaviour
 {
-    public TextMeshProUGUI text1;
-    public TextMeshProUGUI text2;
-    public TextMeshProUGUI text3;
-    public TextMeshProUGUI text4;
+    public GameObject text1;
+    public GameObject text2;
+    public GameObject text3;
+    public GameObject text4;
     public GameObject explainimage;
     public Button button;
 
@@ -24,6 +24,7 @@ public class Explaingame : MonoBehaviour
         text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(false);
         text4.gameObject.SetActive(false);
+        Time.timeScale = 0f;
     }
 
     void OnButtonClick()
@@ -48,6 +49,7 @@ public class Explaingame : MonoBehaviour
 
             case 4:
                 Destroy(gameObject);
+                Time.timeScale = 1f;
  
                 break;
         }

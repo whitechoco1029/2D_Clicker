@@ -53,7 +53,7 @@ public class WeaponUIManager : MonoBehaviour
             // 1. 드롭 시 시작 슬롯과 같은 슬롯 내부에 있을 때 다시 원래 자리로 돌아올 수 있도록
             if (firstWeapon == secondWeapon)
             {
-                Debug.Log("드롭 실패: 같은 슬롯으로 돌아갑니다.");
+                Debug.Log("같은 슬롯으로 돌아간다.");
                 // 같은 슬롯이라면 원래 자리로 무기 돌려놓기               
                 firstWeapon.FixImagePosition();
                 return;
