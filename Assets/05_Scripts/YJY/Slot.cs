@@ -120,7 +120,7 @@ public class Slot : MonoBehaviour
         weaponUIManager.secondWeapon = null;
     }
     // 드래그 종료
-    public void OnDrop()
+    public void EndDrag()
     {
         //weaponUIManager.secondWeapon = this;  // 드롭할 슬롯을 secondWeapon에 설정
         weaponUIManager.HandleDrop();  // 드롭 후 처리 (WeaponUIManager에서 예외 처리)
