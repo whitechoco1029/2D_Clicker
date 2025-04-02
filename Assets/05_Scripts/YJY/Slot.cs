@@ -133,6 +133,10 @@ public class Slot : MonoBehaviour
         iconImage.transform.SetParent(transform);
         iconImage.rectTransform.anchoredPosition = Vector2.zero; // 이미지의 RectTransform 위치를 고정
         iconImage.rectTransform.localPosition = Vector3.zero;
-        iconImage.rectTransform.localScale = originalScale;
+        iconImage.rectTransform.localScale = originalScale; 
+        iconImage.rectTransform.anchorMin = new Vector2(0, 0);
+        iconImage.rectTransform.anchorMax = new Vector2(1, 1);
+        iconImage.rectTransform.offsetMin = Vector2.zero;
+        iconImage.rectTransform.offsetMax = Vector2.zero;
     }
 }
