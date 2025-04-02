@@ -29,7 +29,7 @@ public class UIStage : MonoBehaviour
 
     public void UpdateKillCount(int cnt)
     {
-        textKillCount.text = $"<color=orange>{cnt}</color> / {StageManager.Instance.maxKillCount}";
+        textKillCount.text = $"<color=red>{cnt}</color> / {StageManager.Instance.maxKillCount}";
     }
 
     public void InitHpBar(float maxHealth)

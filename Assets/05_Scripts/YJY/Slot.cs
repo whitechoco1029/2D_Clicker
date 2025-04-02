@@ -15,14 +15,8 @@ public class Slot : MonoBehaviour
 
     void Awake()
     {
-        // LJH
-        //weaponUIManager = transform.parent.parent.GetComponent<WeaponUIManager>();
-        if (transform.parent.parent.TryGetComponent(out WeaponUIManager manager))
-            weaponUIManager = manager;
-        else 
-            weaponUIManager = transform.parent.GetComponent<WeaponUIManager>();
-
-            frontSlot = weaponUIManager.frontSlotTransform;
+        weaponUIManager = transform.parent.parent.GetComponent<WeaponUIManager>();
+       frontSlot = weaponUIManager.frontSlotTransform;
 
         if (frontSlot == null)
         {
@@ -46,11 +40,6 @@ public class Slot : MonoBehaviour
             itemNameText.text = $"{weapondata.weaponID}";  // 무기 ID 텍스트 업데이트
             iconImage.sprite = weapondata.icon;  // 무기 아이콘 설정
         }
-    }
-
-    public WeaponData GetWeaponData()
-    {
-        return weapondata ? weapondata : null;
     }
 
     // 슬롯에 무기 설정

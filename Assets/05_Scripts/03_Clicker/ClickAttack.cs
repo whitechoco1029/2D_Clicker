@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClickAttack : MonoBehaviour
 {
     public UserData userData;
-    void Update()
+    public void Update()
     {
         if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 
         {
@@ -17,6 +17,7 @@ public class ClickAttack : MonoBehaviour
                 EnemyBase enemy = hit.collider.GetComponent<EnemyBase>();
                 if (enemy != null)
                 {
+                    //Debug.Log("수동 공격!");
                     enemy.TakeDamage(userData.clickDmg);
                 }
             }

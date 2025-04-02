@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Xml.Linq;
-using TMPro;
 
 //인벤토리 시스템이 있어야 무기 아이템을 보관하고 관리에 용이할듯함
 //무기아이템을 드래그하여 합성할 수 있는 기능 추가해야됨
@@ -17,15 +16,7 @@ public class WeaponUIManager : MonoBehaviour
     public Slot secondWeapon = null; //두번쨰 선택된 무기
     public Transform frontSlotTransform;
     public List<WeaponData> inventory = new List<WeaponData>();//무기 목록
-
-    // LJH - ItemCooltime
-    [Header("Item Info")]
-    [SerializeField] Image icon;
-    [SerializeField] TextMeshProUGUI textQuantity;
-    [SerializeField] float rechargeTime;
-    [SerializeField] int maxQuantity;
-    float elapsed;
-    int quantity;
+ 
 
     void Start()
     {
@@ -37,13 +28,6 @@ public class WeaponUIManager : MonoBehaviour
         {
             slots.Add (transform.GetChild(0).GetChild(i).GetComponent<Slot>());  // 각 슬롯에 ItemSlot 컴포넌트 연결
         }
-
-        UpdateTextQuantity();
-    }
-
-    private void Update()
-    {
-        RechargeWeapon();
     }
 
     public void HandleDrop()
@@ -122,15 +106,12 @@ public class WeaponUIManager : MonoBehaviour
  
     public void spawnWeapon()
     {
-        if (quantity <= 0)
-            return;
 
         Slot select = GetEmptySlot();
         if (select != null)
         {
-            quantity--;
+            
             select.SetWeapon(currentdata);
-            UpdateTextQuantity();
         }
 
     }
@@ -157,29 +138,5 @@ public class WeaponUIManager : MonoBehaviour
             }
         }
         return null;
-    }
-
-    private void RechargeWeapon()
-    {
-        if (quantity >= maxQuantity)
-            return;
-
-        elapsed += Time.deltaTime;
-
-        if (rechargeTime <= elapsed)
-        {
-            quantity++;
-            elapsed = rechargeTime;
-            UpdateTextQuantity();
-        }
-
-        icon.fillAmount = elapsed / rechargeTime;
-        if (elapsed == rechargeTime)
-            elapsed = 0;
-    }
-
-    private void UpdateTextQuantity()
-    {
-        textQuantity.text = $"{quantity} / {maxQuantity}";
     }
 }
