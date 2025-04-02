@@ -16,6 +16,9 @@ public class AudioManager : MonoBehaviour
     [Header("SFX")]
     public AudioSource sfxSource;
     public AudioClip clickClip;
+    public AudioClip attackClip;
+    public AudioClip weaponUpgradeClip;
+    public AudioClip enemyDieClip;
     public AudioClip upgradeClip;
     public AudioClip errorClip;
 
@@ -66,6 +69,9 @@ public class AudioManager : MonoBehaviour
 
     // 빠르게 자주 쓰는 프리셋용
     public void PlayClick() => PlaySFX(clickClip);
+    public void PlayAttack() => PlaySFX(attackClip);
     public void PlayUpgrade() => PlaySFX(upgradeClip);
     public void PlayError() => PlaySFX(errorClip);
+    public void PlayWeaponUpgrade() => PlaySFX(weaponUpgradeClip);
+    public void PlayEnemyDie() => PlaySFX(enemyDieClip);
 }

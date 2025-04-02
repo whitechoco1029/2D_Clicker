@@ -116,6 +116,7 @@ public class WeaponUIManager : MonoBehaviour
                 // 선택된 무기 초기화              
                 secondWeapon.SetWeapon(upgradedWeapon);
                 firstWeapon.ClearSlot();
+                AudioManager.Instance.PlayWeaponUpgrade();
             }
         }
     }

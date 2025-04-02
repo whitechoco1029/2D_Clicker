@@ -42,6 +42,7 @@ public class EnemyBase : MonoBehaviour
         Health = Mathf.Max(0, Health);
         StageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
         ParticleManager.Instance.CreateDamageParticle(transform.position, damage.ToString("N1"), isCri ? Color.magenta : Color.yellow, isCri);
+        AudioManager.Instance.PlayAttack();
 
         if (Health <= 0)
             Die();
@@ -72,8 +73,9 @@ public class EnemyBase : MonoBehaviour
         rigid.AddTorque(Random.Range(-100f, 100f), ForceMode2D.Impulse);
 
         StartCoroutine(FadeOut());
+        AudioManager.Instance.PlayEnemyDie();
     }
-    
+
     IEnumerator FlashOnHit()
     {
         sprite.color = Color.red;
