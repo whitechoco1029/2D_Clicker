@@ -14,11 +14,10 @@ public class ClickAttack : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("수동 공격!");
                 EnemyBase enemy = hit.collider.GetComponent<EnemyBase>();
                 if (enemy != null)
                 {
-                    Debug.Log("수동 공격!");
+                    //Debug.Log("수동 공격!");
                     enemy.TakeDamage(userData.clickDmg);
                 }
             }

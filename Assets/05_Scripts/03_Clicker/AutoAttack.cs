@@ -24,7 +24,7 @@ public class AutoAttack : MonoBehaviour
     void AttackAllEnemies()
     {
 
-        Debug.Log("자동 공격!");
+        //Debug.Log("자동 공격!");
         foreach (EnemyBase enemy in FindObjectsOfType<EnemyBase>()) // 모든 적 찾기
         {
             enemy.TakeDamage(AutoDmg);
