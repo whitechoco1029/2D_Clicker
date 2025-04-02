@@ -31,6 +31,11 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        PlayBGM(mainBGM);
+    }
+
     // BGM Àç»ý
     public void PlayBGM(AudioClip clip)
     {
