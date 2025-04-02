@@ -23,10 +23,6 @@ public class ParticleManager : MonoBehaviour
         {
             instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void Start()
@@ -34,23 +30,23 @@ public class ParticleManager : MonoBehaviour
         wait = new WaitForSeconds(lifeTime);
 
         damagePool = new ObjectPool<DamageParticle>(
-                createFunc: () => Instantiate(damagePrefab, transform),
-            actionOnGet: (text) => text.gameObject.SetActive(true),
-            actionOnRelease: (text) => text.gameObject.SetActive(false),
-            actionOnDestroy: (text) => Destroy(text.gameObject),
-            collectionCheck: false,
-            defaultCapacity: 10,
-            maxSize: 50
+            () => Instantiate(damagePrefab, transform),
+            (textDamage) => textDamage.gameObject.SetActive(true),
+            (textDamage) => textDamage.gameObject.SetActive(false),
+            (textDamage) => Destroy(textDamage.gameObject),
+            false,
+            10,
+            30
             );
 
         particlePool = new ObjectPool<ParticleSystem>(
-                createFunc: () => Instantiate(particlePrefab, transform),
-            actionOnGet: (text) => text.gameObject.SetActive(true),
-            actionOnRelease: (text) => text.gameObject.SetActive(false),
-            actionOnDestroy: (text) => Destroy(text.gameObject),
-            collectionCheck: false,
-            defaultCapacity: 10,
-            maxSize: 50
+            () => Instantiate(particlePrefab, transform),
+            (particle) => particle.gameObject.SetActive(true),
+            (particle) => particle.gameObject.SetActive(false),
+            (particle) => Destroy(particle.gameObject),
+            false,
+            10,
+            30
             );
     }
 
