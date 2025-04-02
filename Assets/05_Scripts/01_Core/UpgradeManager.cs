@@ -28,6 +28,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlayBGM(AudioManager.Instance.mainBGM);
         userData = GameManager.Instance.userData;
         statData = upgradeStatDataList.Find(x => x.statType == statType);
         UpdateUI();
