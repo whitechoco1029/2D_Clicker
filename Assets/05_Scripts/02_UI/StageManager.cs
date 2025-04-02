@@ -8,9 +8,18 @@ using static UnityEngine.ParticleSystem;
 public class StageManager : MonoBehaviour
 {
     static StageManager instance;
-    public static StageManager Instance => instance;
+    public static StageManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = new GameObject("StageManager").AddComponent<StageManager>();
 
-    [SerializeField] EnemySpawner spawner;
+            return instance;
+        }
+    }
+
+    public EnemySpawner spawner;
     public UIStage uiStage;
     public int maxKillCount;
 
