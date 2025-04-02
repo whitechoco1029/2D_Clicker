@@ -22,46 +22,4 @@ public class AttackManager : MonoBehaviour
             Debug.Log("ClickAttack");
         }
     }
-
-    //public void PlayHitEffect(Vector3 position)
-    //{
-    //    if (hitEffect != null)
-    //    {
-    //        Instantiate(hitEffect, position, Quaternion.identity);
-    //    }
-    //}
-
-//    {
-//    public ClickAttack clickAttack;
-//    public AutoAttack autoAttack;
-//    public Image targetImage; // ±ôºýÀÏ UI ÀÌ¹ÌÁö
-//    public Color flashColor = Color.red; // ±ôºýÀÏ »ö»ó
-//    private Color originalColor; // ¿ø·¡ »ö»ó
-//    public float flashDuration = 0.1f; // ±ôºýÀÌ´Â ½Ã°£
-
-//    void Start()
-//    {
-//        if (autoAttack == null)
-//            autoAttack = GetComponent<AutoAttack>();
-
-//        if (clickAttack == null)
-//            clickAttack = GetComponent<ClickAttack>();
-
-//        if (targetImage != null)
-//            originalColor = targetImage.color; // ¿ø·¡ »ö»ó ÀúÀå
-//    }
-
-//    public void FlashUI()
-//    {
-//        if (targetImage != null)
-//            StartCoroutine(FlashCoroutine());
-//    }
-
-//    IEnumerator FlashCoroutine()
-//    {
-//        targetImage.color = flashColor; // »ö»ó º¯°æ
-//        yield return new WaitForSeconds(flashDuration);
-//        targetImage.color = originalColor; // ¿ø·¡ »ö»ó º¹±¸
-//    }
-//}
 }

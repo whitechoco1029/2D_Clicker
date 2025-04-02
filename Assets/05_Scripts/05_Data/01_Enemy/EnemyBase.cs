@@ -40,8 +40,8 @@ public class EnemyBase : MonoBehaviour
 
         Health -= damage;
         Health = Mathf.Max(0, Health);
-        StageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
-        ParticleManager.Instance.CreateDamageParticle(transform.position, damage.ToString(), Color.yellow);
+        //tageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
+        //ParticleManager.Instance.CreateDamageParticle(transform.position, damage.ToString(), Color.yellow);
 
         if (Health <= 0)
             Die();
@@ -101,6 +101,6 @@ public class EnemyBase : MonoBehaviour
             yield return null;
         }
 
-        StageManager.Instance.AddKillCount();
+        //StageManager.Instance.AddKillCount();
     }
 }
