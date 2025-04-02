@@ -17,11 +17,6 @@ public class UIStage : MonoBehaviour
     float targetHp;
     float curHp;
 
-    private void Awake()
-    {
-        StageManager.Instance.uiStage = this;
-    }
-
     public void UpdateStageUI(int stage)
     {
         textStage.text = $"Stage {stage}";

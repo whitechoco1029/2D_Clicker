@@ -34,14 +34,14 @@ public class EnemyBase : MonoBehaviour
         DropGold = data.dropGold;
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, bool isCri = false)
     {
         if (dead) return;
 
         Health -= damage;
         Health = Mathf.Max(0, Health);
-        //tageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
-        //ParticleManager.Instance.CreateDamageParticle(transform.position, damage.ToString(), Color.yellow);
+        StageManager.Instance.uiStage.UpdateHealthBar(MaxHealth, Health);
+        ParticleManager.Instance.CreateDamageParticle(transform.position, damage.ToString("N1"), isCri ? Color.magenta : Color.yellow, isCri);
 
         if (Health <= 0)
             Die();
@@ -59,6 +59,9 @@ public class EnemyBase : MonoBehaviour
     public virtual void Die()
     {
         dead = true;
+
+        // °ñµå È¹µæ
+        GameManager.Instance.userData.gold += data.dropGold + (data.dropGold * GameManager.Instance.userData.goldBonus);
 
         StopAllCoroutines();
         sprite.color = Color.white;

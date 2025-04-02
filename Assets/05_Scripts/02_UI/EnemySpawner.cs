@@ -22,9 +22,6 @@ public class EnemySpawner : MonoBehaviour
             enemyPool.Add(newEnemy);
             newEnemy.gameObject.SetActive(false);
         }
-
-        StageManager.Instance.spawner = this;
-
     }
    
     public EnemyBase SpawnEnemy()

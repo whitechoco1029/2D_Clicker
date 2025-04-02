@@ -11,20 +11,21 @@ public class AutoAttack : MonoBehaviour
     {
         StartCoroutine(AutoAttackCoroutine());
     }
-
+    
     IEnumerator AutoAttackCoroutine()
     {
         while (true)
         {
+            attackInterval = 1 / GameManager.Instance.userData.atkSpeed;
             yield return new WaitForSeconds(attackInterval);
-            AttackAllEnemies();
+            StageManager.Instance.OnButtonAttackClick();
+            //AttackAllEnemies();
         }
     }
 
     void AttackAllEnemies()
     {
-
-        //Debug.Log("자동 공격!");
+        Debug.Log("자동 공격!");
         foreach (EnemyBase enemy in FindObjectsOfType<EnemyBase>()) // 모든 적 찾기
         {
             enemy.TakeDamage(AutoDmg);

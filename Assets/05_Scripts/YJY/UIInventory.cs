@@ -6,10 +6,19 @@ using static UnityEditor.Progress;
 
 public class UIInventory : MonoBehaviour
 {
+    static UIInventory instance;
+    public static UIInventory Instance => instance;
+
     public Slot[] slots;  // 아이템 슬롯 배열
     public GameObject inventoryWindow;  // 인벤토리 창
     public Transform SlotPanel;  // 슬롯이 배치된 패널
     public Slot equipSlots;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
 
     void Start()
     {

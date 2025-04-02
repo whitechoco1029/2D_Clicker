@@ -16,9 +16,10 @@ public class DamageParticle : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(string damage, Color color)
+    public void Init(string damage, Color color, bool isCri = false)
     {
         textDamage.text = damage;
+        textDamage.fontSize = isCri ? 400 : 200;
         textDamage.outlineColor = color;
         
         Vector2 force = new Vector2(Random.Range(-forceRange / 2, forceRange/ 2), forcePower);

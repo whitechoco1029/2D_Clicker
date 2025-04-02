@@ -54,7 +54,7 @@ public class ParticleManager : MonoBehaviour
             );
     }
 
-    public void CreateDamageParticle(Vector3 position, string damage, Color color)
+    public void CreateDamageParticle(Vector3 position, string damage, Color color, bool isCri = false)
     {
         // 포지션 랜덤위치 생성
         Vector3 vecRand = Random.insideUnitCircle * createRange;
@@ -62,7 +62,7 @@ public class ParticleManager : MonoBehaviour
         // 데미지 텍스트 생성
         DamageParticle textDamage = damagePool.Get();
         textDamage.transform.position = position + vecRand;
-        textDamage.Init(damage, color);
+        textDamage.Init(damage, color, isCri);
 
         // 이펙트 파티클 생성
         ParticleSystem particle = particlePool.Get();
