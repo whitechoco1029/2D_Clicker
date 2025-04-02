@@ -9,7 +9,7 @@ public class UIInventory : MonoBehaviour
     public Slot[] slots;  // 아이템 슬롯 배열
     public GameObject inventoryWindow;  // 인벤토리 창
     public Transform SlotPanel;  // 슬롯이 배치된 패널
-
+    public Slot equipSlots;
 
     void Start()
     {
@@ -33,6 +33,8 @@ public class UIInventory : MonoBehaviour
         {
             slots[i].ClearSlot(); 
         }
+
+        equipSlots.ClearSlot();
     }
 
     // 인벤토리에 아이템 추가

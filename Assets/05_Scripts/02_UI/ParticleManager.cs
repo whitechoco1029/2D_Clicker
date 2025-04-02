@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using static UnityEngine.ParticleSystem;
 
 public class ParticleManager : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class ParticleManager : MonoBehaviour
         wait = new WaitForSeconds(lifeTime);
 
         damagePool = new ObjectPool<DamageParticle>(
-                createFunc: () => Instantiate(damagePrefab, transform),
+            createFunc: () => Instantiate(damagePrefab, transform),
             actionOnGet: (text) => text.gameObject.SetActive(true),
             actionOnRelease: (text) => text.gameObject.SetActive(false),
             actionOnDestroy: (text) => Destroy(text.gameObject),
@@ -44,10 +45,10 @@ public class ParticleManager : MonoBehaviour
             );
 
         particlePool = new ObjectPool<ParticleSystem>(
-                createFunc: () => Instantiate(particlePrefab, transform),
-            actionOnGet: (text) => text.gameObject.SetActive(true),
-            actionOnRelease: (text) => text.gameObject.SetActive(false),
-            actionOnDestroy: (text) => Destroy(text.gameObject),
+            createFunc: () => Instantiate(particlePrefab, transform),
+            actionOnGet: (particle) => particle.gameObject.SetActive(true),
+            actionOnRelease: (particle) => particle.gameObject.SetActive(false),
+            actionOnDestroy: (particle) => Destroy(particle.gameObject),
             collectionCheck: false,
             defaultCapacity: 10,
             maxSize: 50
