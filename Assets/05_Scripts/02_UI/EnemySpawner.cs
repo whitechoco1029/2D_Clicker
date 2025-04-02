@@ -22,13 +22,11 @@ public class EnemySpawner : MonoBehaviour
             enemyPool.Add(newEnemy);
             newEnemy.gameObject.SetActive(false);
         }
-    }
 
-    private void Start()
-    {
         StageManager.Instance.spawner = this;
-    }
 
+    }
+   
     public EnemyBase SpawnEnemy()
     {
         int rand = Random.Range(0, enemyPool.Count);

@@ -101,6 +101,6 @@ public class EnemyBase : MonoBehaviour
             yield return null;
         }
 
-        //StageManager.Instance.AddKillCount();
+        StageManager.Instance.AddKillCount();
     }
 }

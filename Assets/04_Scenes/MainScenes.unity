@@ -706,7 +706,7 @@ RectTransform:
   m_Father: {fileID: 1325600619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1157,6 +1157,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1167106850}
   - {fileID: 453143753}
   - {fileID: 506289320}
   - {fileID: 259540593}
@@ -1228,7 +1229,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!1 &280581007
 GameObject:
@@ -1298,7 +1299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de8d8a966650f94a8eef017dd74e985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: f013a9da8e878e64b82d71203d855e01, type: 2}
 --- !u!114 &281751043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,7 +2025,7 @@ RectTransform:
   m_Father: {fileID: 353496966}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2381,7 +2381,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1167106850}
   - {fileID: 215006161}
   - {fileID: 615225356}
   - {fileID: 286274898}
@@ -2991,6 +2990,7 @@ MonoBehaviour:
   slots: []
   inventoryWindow: {fileID: 615225355}
   SlotPanel: {fileID: 796821203}
+  equipSlots: {fileID: 1965834341}
 --- !u!114 &615225359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4060,7 +4060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &772938491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5526,9 +5526,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1223320971}
-        m_TargetAssemblyTypeName: AudioPopupController, Assembly-CSharp
-        m_MethodName: ClosePopup
+      - m_Target: {fileID: 1223320970}
+        m_TargetAssemblyTypeName: StatPopupController, Assembly-CSharp
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6227,12 +6227,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 453143753}
+  m_Father: {fileID: 280343961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 980, y: 1820}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 39, y: 0}
+  m_SizeDelta: {x: 2304, y: 1920}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1167106851
 MonoBehaviour:
@@ -6254,8 +6254,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8cbb7fa52ff41954984ad7b3a7611167, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 8433e990ef20fd84da4bc647e47d5d29, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6561,10 +6561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3973cea870c711f40b15d2f0fd564a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupPanel: {fileID: 772938490}
-  bgmSlider: {fileID: 488681221}
-  sfxSlider: {fileID: 1814028553}
-  audioMixer: {fileID: 24100000, guid: f013a9da8e878e64b82d71203d855e01, type: 2}
 --- !u!4 &1223320972
 Transform:
   m_ObjectHideFlags: 0
@@ -9996,7 +9992,7 @@ RectTransform:
   m_Father: {fileID: 1447704554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.084, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10531,8 +10527,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1224829401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.084, y: 0}
-  m_AnchorMax: {x: 0.084, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11706,12 +11702,12 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 109198330}
   - {fileID: 1809193447}
-  - {fileID: 280343961}
   - {fileID: 776912739}
   - {fileID: 1028263523}
   - {fileID: 761978463}
   - {fileID: 1223320972}
   - {fileID: 1451483504}
+  - {fileID: 280343961}
   - {fileID: 962373385}
   - {fileID: 202700057}
   - {fileID: 2107816416}
