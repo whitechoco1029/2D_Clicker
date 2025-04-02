@@ -15,8 +15,15 @@ public class Slot : MonoBehaviour
 
     void Awake()
     {
-        weaponUIManager = transform.parent.parent.GetComponent<WeaponUIManager>();
-       frontSlot = weaponUIManager.frontSlotTransform;
+        // weaponUIManager = transform.parent.parent.GetComponent<WeaponUIManager>();
+        //frontSlot = weaponUIManager.frontSlotTransform;
+        // LJH
+        if (transform.parent.parent.TryGetComponent(out WeaponUIManager manager))
+            weaponUIManager = manager;
+        else
+            weaponUIManager = transform.parent.GetComponent<WeaponUIManager>();
+
+        frontSlot = weaponUIManager.frontSlotTransform;
 
         if (frontSlot == null)
         {
